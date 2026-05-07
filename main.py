@@ -5,8 +5,6 @@ import redis
 import json
 import os
 from datetime import datetime
-from dotenv import load_dotenv
-load_dotenv() 
 
 app = FastAPI(title="Payment Service")
 
@@ -18,11 +16,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Aiven Valkey Connection (Redis compatible)
-REDIS_URL:"rediss://default:AVNS_ij8VvqRAEV0Q0NJYaX-@valkey-cdbba12-ayeshataufique29-e9a8.i.aivencloud.com:22844" 
+# FIXED: Use = instead of : (this was the only error!)
+REDIS_URL = "rediss://default:AVNS_ij8VvqRAEV0Q0NJYaX-@valkey-cdbba12-ayeshataufique29-e9a8.i.aivencloud.com:22844"
+
+# Optional: Add a check to ensure it's set
 if not REDIS_URL:
-    raise Exception("REDIS_URL environment variable is required")
-r = redis.from_url(REDIS_URL + "/0", decode_responses=True)  # Add /0
+    raise Exception("REDIS_URL is required")
+
+# Connect to Aiven Valkey (Redis compatible)
+r = redis.from_url(REDIS_URL + "/0", decode_responses=True)
 
 class PaymentRequest(BaseModel):
     order_id: int
