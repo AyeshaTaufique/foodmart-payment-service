@@ -19,7 +19,7 @@ app.add_middleware(
 )
 
 # Aiven Valkey Connection (Redis compatible)
-REDIS_URL = os.getenv("REDIS_URL")
+REDIS_URL:"rediss://default:AVNS_ij8VvqRAEV0Q0NJYaX-@valkey-cdbba12-ayeshataufique29-e9a8.i.aivencloud.com:22844" 
 if not REDIS_URL:
     raise Exception("REDIS_URL environment variable is required")
 r = redis.from_url(REDIS_URL + "/0", decode_responses=True)  # Add /0
