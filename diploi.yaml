@@ -1,0 +1,27 @@
+diploiVersion: v1.0
+name: Payment Service
+description: FastAPI-based payment service using external Aiven Redis
+
+components:
+  - name: Payment API
+    identifier: payment-api
+    folder: /
+    package: https://github.com/diploi/component-fastapi#v0.135.2
+    env:
+      include:
+        - name: PYTHON_VERSION
+          value: '3.11'
+        - name: REDIS_URL
+          value: ""  # You'll set this in Diploi UI
+    containerCommands:
+      developmentStart: >-
+        uv run --with uvicorn uvicorn main:app --host 0.0.0.0 --port 5004 --reload
+      productionStart: >-
+        uv run --with uvicorn uvicorn main:app --host 0.0.0.0 --port 5004 --proxy-headers
+    hosts:
+      - identifier: app
+        name: Payment Service
+        endpoint: true
+        port: 5004
+
+# No Redis addon - using external Aiven Redis
