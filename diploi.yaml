@@ -12,7 +12,7 @@ components:
         - name: PYTHON_VERSION
           value: '3.11'
         - name: REDIS_URL
-          value: ""  # You'll set this in Diploi UI
+          value: "rediss://default:AVNS_ij8VvqRAEV0Q0NJYaX-@valkey-cdbba12-ayeshataufique29-e9a8.i.aivencloud.com:22844" 
     containerCommands:
       developmentStart: >-
         uv run --with uvicorn uvicorn main:app --host 0.0.0.0 --port 5004 --reload
